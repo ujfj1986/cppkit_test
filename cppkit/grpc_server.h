@@ -12,19 +12,21 @@
 #include "headers.h"
 #include "grpc_headers.h"
 
-template <typename Listener>
-class GrpcServer : public AbstractServer, public ListenerRegister<Listener> {
+class GrpcServer : public AbstractServer {
     
 public:
     static std::shared_ptr<GrpcServer> create();
     
     GrpcServer();
+    GrpcServer(std::shared_ptr<Grpc> ins);
     ~GrpcServer();
+
+    void start();
     
     std::shared_ptr<Grpc> mGrpc;
 };
 
-using Grpc1Server = GrpcServer<IListener1>;
-using Grpc2Server = GrpcServer<IListener2>;
+//using Grpc1Server = GrpcServer<IListener1>;
+//using Grpc2Server = GrpcServer<IListener2>;
 
 #endif /* grpc_server_h */

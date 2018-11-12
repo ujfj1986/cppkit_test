@@ -11,21 +11,27 @@
 #include "grpc_headers.h"
 #include "grpc_impl.h"
 
-template<typename Listener>
-GrpcServer<Listener>::GrpcServer() {
+GrpcServer::GrpcServer() {
     std::cout << "in template GrpcServer.GrpcServer" << std::endl;
 }
 
-template <typename Listener>
-GrpcServer<Listener>::~GrpcServer() {
+GrpcServer::GrpcServer(std::shared_ptr<Grpc> ins) {
+    std::cout << "in template GrpcServer.GrpcServer(ins)" << std::endl;
+    this->mGrpc = ins;
+}
+
+GrpcServer::~GrpcServer() {
     std::cout << "in template GrpcServer.~GrpcServer" << std::endl;
 }
 
-template <typename Listener>
-std::shared_ptr<GrpcServer<Listener>> GrpcServer<Listener>::create() {
-    return std::shared_ptr<GrpcServer<Listener>>(new GrpcServer<Listener>);
+std::shared_ptr<GrpcServer> GrpcServer::create() {
+    return std::shared_ptr<GrpcServer>(new GrpcServer);
 }
 
+void GrpcServer::start() {
+    std::cout << "in GrpcServer.start()" << std::endl;
+    this->mGrpc->run();
+}
 #if 0
 template<> class GrpcServer<IListener1> {
     

@@ -10,7 +10,8 @@
 #define grpc_headers_h
 
 class Grpc {
-    
+public:
+    virtual void run() = 0;
 };
 
 class IGrpc1 {

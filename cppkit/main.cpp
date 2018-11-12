@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include "headers.h"
-#include "grpc_server.h"
 
 class Listener1Impl : public IListener1 {
 public:
@@ -33,17 +32,17 @@ public:
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
-    Grpc1Server server1;
-    Grpc2Server server2;
+    std::shared_ptr<AbstractServer> server1;
+    std::shared_ptr<AbstractServer> server2;
     
     std::shared_ptr<IListener1> listener1(new Listener1Impl);
     std::shared_ptr<IListener2> listener2(new Listener2Impl);
     
-    server1.registerListener(listener1);
-    server2.registerListener(listener2);
+    server1 = ServerBuilder::create(listener1);
+    server2 = ServerBuilder::create(listener2);
     
-    server1.start();
-    server2.start();
+    server1->start();
+    server2->start();
     
     return 0;
 }

@@ -10,6 +10,7 @@
 #define headers_h
 
 #include <iostream>
+#include <memory>
 
 class AbstractServer {
 public:
@@ -62,6 +63,12 @@ public:
     
     virtual void onEvent3() = 0;
     virtual void onEvent4() = 0;
+};
+
+class ServerBuilder {
+public:
+    static std::shared_ptr<AbstractServer> create(std::shared_ptr<IListener1> listener);
+    static std::shared_ptr<AbstractServer> create(std::shared_ptr<IListener2> listener);
 };
 
 #endif /* headers_h */

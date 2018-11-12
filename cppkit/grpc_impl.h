@@ -18,6 +18,10 @@ class Grpc1Impl : public IGrpc1 , public Grpc{
     
 public:
     Grpc1Impl() = default;
+    Grpc1Impl(std::shared_ptr<IListener1> listener) {
+        std::cout << "in Grpc1Impl.Grpc1Impl" << std::endl;
+        this->mListener = listener;
+    }
     ~Grpc1Impl() = default;
     
     std::shared_ptr<IListener1> mListener;
@@ -40,12 +44,24 @@ public:
             this->mListener->onEvent2();
         }
     }
+
+    void run() {
+        std::cout << "in Grpc1Impl.run" << std::endl;
+        for (int i = 0; i < 10; i++) {
+            this->interface1();
+            this->interface2();
+        }
+    }
 };
 
-class Grpc2Impl : public IGrpc1 , public Grpc{
+class Grpc2Impl : public IGrpc2 , public Grpc{
     
 public:
     Grpc2Impl() = default;
+    Grpc2Impl(std::shared_ptr<IListener2> listener) {
+        std::cout << "in Grpc2Impl.Grpc2Impl" << std::endl;
+        this->mListener = listener;
+    }
     ~Grpc2Impl() = default;
     
     std::shared_ptr<IListener2> mListener;
@@ -66,6 +82,14 @@ public:
         std::cout << "in Grpc2Impl.interface4" << std::endl;
         if (nullptr != this->mListener) {
             this->mListener->onEvent4();
+        }
+    }
+
+    void run() {
+        std::cout << "in Grpc2Impl.run" << std::endl;
+        for (int i = 0; i < 10; i++) {
+            this->interface3();
+            this->interface4();
         }
     }
 };
